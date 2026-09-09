@@ -1,0 +1,24 @@
+{
+  "phase": "16",
+  "name": "End-to-End Validation",
+  "status": "implemented",
+  "scope": "local development",
+  "clinical_claim": false,
+  "journey": [
+    {"id":"E2E-01","area":"availability","check":"/api/health returns status=ok"},
+    {"id":"E2E-02","area":"authentication","check":"USER demo session is established and resolved"},
+    {"id":"E2E-03","area":"profile","check":"health profile can be saved"},
+    {"id":"E2E-04","area":"safety","check":"clinical safety returns a supported priority"},
+    {"id":"E2E-05","area":"knowledge","check":"guideline provenance is present"},
+    {"id":"E2E-06","area":"ml","check":"ML returns a screening signal and model version"},
+    {"id":"E2E-07","area":"intelligence","check":"clinical intelligence contains clinical knowledge"},
+    {"id":"E2E-08","area":"persistence","check":"screening is persisted and retrievable"},
+    {"id":"E2E-09","area":"consent","check":"care-coordination consent can be recorded"},
+    {"id":"E2E-10","area":"care","check":"beneficiary can create a care case with consent"},
+    {"id":"E2E-11","area":"journey","check":"health journey aggregates timeline data"},
+    {"id":"E2E-12","area":"asha","check":"ASHA can assign/update a care case"},
+    {"id":"E2E-13","area":"doctor","check":"doctor can be assigned to a care case"},
+    {"id":"E2E-14","area":"consultation","check":"consultation record can be created"},
+    {"id":"E2E-15","area":"privacy","check":"authenticated user can export their data"}
+  ]
+}

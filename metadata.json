@@ -1,0 +1,7 @@
+{
+  "name": "StreeSure",
+  "description": "Multilingual AI-assisted women's health screening, 3D anatomical awareness, Voice Saathi, and care-navigation platform.",
+  "requestFramePermissions": ["microphone", "geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+

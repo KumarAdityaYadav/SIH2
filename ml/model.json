@@ -1,0 +1,112 @@
+{
+  "modelVersion": "streesure-pcos-v1",
+  "modelType": "logistic_regression",
+  "target": "PCOS",
+  "threshold": 0.36,
+  "features": [
+    {
+      "name": "family_history_pcos"
+    },
+    {
+      "name": "overweight"
+    },
+    {
+      "name": "cycle_irregular"
+    },
+    {
+      "name": "weight_gain"
+    },
+    {
+      "name": "facial_hair"
+    },
+    {
+      "name": "body_hair"
+    },
+    {
+      "name": "skin_darkening"
+    },
+    {
+      "name": "pimples"
+    },
+    {
+      "name": "hormonal_acne"
+    },
+    {
+      "name": "hair_loss"
+    },
+    {
+      "name": "weight_kg"
+    },
+    {
+      "name": "height_m"
+    },
+    {
+      "name": "bmi"
+    }
+  ],
+  "mean": [
+    0.3567251461988304,
+    0.6242690058479532,
+    0.6842105263157895,
+    0.7668128654970761,
+    0.5716374269005848,
+    0.5409356725146199,
+    0.6461988304093568,
+    0.533625730994152,
+    0.5482456140350878,
+    0.8260233918128655,
+    65.29195906432749,
+    1.5770961988304093,
+    25.83845029239766
+  ],
+  "scale": [
+    0.4790326880999391,
+    0.484311071714824,
+    0.464829519280413,
+    0.38055179244757714,
+    0.49484146862107603,
+    0.4983214531964039,
+    0.4781484100014724,
+    0.49886802885643905,
+    0.49766691745220254,
+    0.3790893667604445,
+    14.345027144080492,
+    0.1059932257442888,
+    5.640486317907341
+  ],
+  "coefficients": [
+    0.7230873292659161,
+    0.1705118435068958,
+    1.3385059813141453,
+    0.17196754140625795,
+    0.5054233280415125,
+    0.3311272661068315,
+    0.5305907926288322,
+    -0.16295645973655395,
+    0.07349778343248152,
+    0.40377493553374655,
+    0.19729295785231332,
+    -0.018540899064608304,
+    0.1860010188382151
+  ],
+  "intercept": 2.508485353136836,
+  "trainingData": {
+    "rows": 684,
+    "positive": 521,
+    "negative": 163
+  },
+  "validation": {
+    "cv": 5,
+    "rocAuc": 0.9400927899391213,
+    "prAuc": 0.9787802627747572,
+    "f1OptimizedThreshold": 0.36,
+    "f1AtThreshold": 0.9348230912476723,
+    "precisionAtThreshold": 0.9077757685352622,
+    "recallAtThreshold": 0.963531669865643
+  },
+  "limitations": [
+    "Internal retrospective dataset evaluation only; not clinical validation.",
+    "The dataset is not a prospective representative population sample.",
+    "The output is a screening-support probability, not a diagnosis."
+  ]
+}

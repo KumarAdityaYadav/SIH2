@@ -1,0 +1,187 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    @apply bg-[#FFF5F8] text-slate-900 antialiased selection:bg-rose-500 selection:text-white;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+}
+
+/* Modern Feminine Health & Floral Blossom Light Pink Mesh Background */
+.blossom-mesh-bg {
+  background-color: #fff5f8;
+  background-image: 
+    radial-gradient(circle at 10% 15%, rgba(254, 205, 217, 0.5) 0%, transparent 45%),
+    radial-gradient(circle at 90% 20%, rgba(253, 232, 238, 0.7) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(255, 240, 245, 0.8) 0%, transparent 60%),
+    radial-gradient(circle at 20% 80%, rgba(254, 215, 226, 0.45) 0%, transparent 45%),
+    radial-gradient(circle at 80% 85%, rgba(252, 228, 236, 0.6) 0%, transparent 50%);
+  background-attachment: fixed;
+}
+
+/* Health & Botanical Watermark Background Overlay */
+.health-watermark-bg {
+  position: relative;
+}
+
+.health-watermark-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: 
+    url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M60 15 C45 35 15 45 15 60 C15 75 45 85 60 105 C75 85 105 75 105 60 C105 45 75 35 60 15 Z' fill='none' stroke='%23f43f5e' stroke-width='0.8' stroke-opacity='0.04'/%3E%3Ccircle cx='60' cy='60' r='18' fill='none' stroke='%23ec4899' stroke-width='0.6' stroke-opacity='0.03'/%3E%3Cpath d='M40 60 Q50 52 60 60 T80 60' fill='none' stroke='%23fb7185' stroke-width='0.7' stroke-opacity='0.04'/%3E%3C/svg%3E"),
+    radial-gradient(circle at 85% 10%, rgba(244, 63, 94, 0.05) 0%, transparent 35%);
+  background-repeat: repeat;
+  background-size: 140px 140px, auto;
+  opacity: 0.85;
+  z-index: 0;
+}
+
+.blossom-dot-pattern {
+  background-color: #fff5f8;
+  background-image: radial-gradient(circle at 2px 2px, rgba(244, 63, 94, 0.12) 1.2px, transparent 0);
+  background-size: 24px 24px;
+}
+
+.blossom-dot-dense {
+  background-color: #fdf2f5;
+  background-image: radial-gradient(circle at 2px 2px, rgba(236, 72, 153, 0.14) 1.2px, transparent 0);
+  background-size: 18px 18px;
+}
+
+/* Custom Soft Rose Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: #fff0f4;
+}
+::-webkit-scrollbar-thumb {
+  background: #fbcfe8;
+  border-radius: 9999px;
+  border: 1px solid rgba(244, 63, 94, 0.2);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #f43f5e;
+}
+
+/* Modern Light Glassmorphic Blossom Card Effects */
+.glass-blossom-card {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(251, 113, 133, 0.22);
+  border-radius: 1.25rem;
+  box-shadow: 0 10px 30px -6px rgba(244, 63, 94, 0.07), 0 2px 8px -2px rgba(0, 0, 0, 0.03);
+}
+
+.glass-blossom-card:hover {
+  border-color: rgba(244, 63, 94, 0.4);
+  box-shadow: 0 16px 36px -6px rgba(244, 63, 94, 0.14), 0 4px 12px -2px rgba(244, 63, 94, 0.05);
+}
+
+.glass-blossom-glow {
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(244, 63, 94, 0.3);
+  border-radius: 1.5rem;
+  box-shadow: 0 0 35px -5px rgba(244, 63, 94, 0.12), 0 16px 40px -10px rgba(244, 63, 94, 0.08);
+}
+
+.glass-berry-card {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(217, 70, 239, 0.25);
+  border-radius: 1.25rem;
+  box-shadow: 0 10px 30px -5px rgba(217, 70, 239, 0.08);
+}
+
+/* Luminous Glowing Buttons */
+.btn-rose-primary {
+  background: linear-gradient(135deg, #f43f5e 0%, #ec4899 50%, #e11d48 100%);
+  color: #ffffff;
+  font-weight: 700;
+  box-shadow: 0 6px 20px -2px rgba(244, 63, 94, 0.35);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-rose-primary:hover {
+  background: linear-gradient(135deg, #fb7185 0%, #f43f5e 50%, #e11d48 100%);
+  box-shadow: 0 8px 26px 0 rgba(244, 63, 94, 0.45);
+  transform: translateY(-1px);
+}
+
+.btn-berry-primary {
+  background: linear-gradient(135deg, #c026d3 0%, #a855f7 50%, #ec4899 100%);
+  color: #ffffff;
+  font-weight: 700;
+  box-shadow: 0 6px 20px -2px rgba(192, 38, 211, 0.3);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-berry-primary:hover {
+  box-shadow: 0 8px 26px 0 rgba(192, 38, 211, 0.45);
+  transform: translateY(-1px);
+}
+
+.btn-soft-blush {
+  background: rgba(255, 241, 244, 0.95);
+  color: #e11d48;
+  border: 1px solid rgba(251, 113, 133, 0.35);
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+.btn-soft-blush:hover {
+  background: #ffe4e9;
+  color: #be123c;
+  border-color: rgba(244, 63, 94, 0.5);
+}
+
+/* Animations */
+@keyframes float-gentle {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-6px) rotate(0.5deg);
+  }
+}
+
+.animate-float-gentle {
+  animation: float-gentle 5s ease-in-out infinite;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+}
+
+.animate-pulse-ring {
+  animation: pulse-ring 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes shimmer-slow {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.shimmer-badge {
+  background: linear-gradient(90deg, rgba(244,63,94,0.06) 0%, rgba(244,63,94,0.2) 50%, rgba(244,63,94,0.06) 100%);
+  background-size: 200% 100%;
+  animation: shimmer-slow 4s infinite linear;
+}

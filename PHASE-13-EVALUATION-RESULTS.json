@@ -1,0 +1,32 @@
+{
+  "modelVersion": "streesure-pcos-v1",
+  "internalValidation": {
+    "datasetRows": 684,
+    "cv": 5,
+    "rocAuc": 0.9400927899391213,
+    "prAuc": 0.9787802627747572,
+    "threshold": 0.36,
+    "precision": 0.9077757685352622,
+    "recall": 0.963531669865643,
+    "f1": 0.9348230912476723
+  },
+  "externalClinical541": {
+    "rows": 541,
+    "rocAuc": 0.811285465946483,
+    "prAuc": 0.707220783994598,
+    "accuracy": 0.789279112754159,
+    "precision": 0.7368421052631579,
+    "recall": 0.5536723163841808,
+    "f1": 0.632258064516129,
+    "note": "Exploratory external evaluation using approximate feature mappings; not clinical validation."
+  },
+  "externalExtended2000": {
+    "rows": 2000,
+    "uniquePatientIds": 530,
+    "rowRocAuc": 0.8150427253478524,
+    "rowPrAuc": 0.6933457169553091,
+    "patientMeanProbabilityRocAuc": 0.8129094567404426,
+    "patientMeanProbabilityPrAuc": 0.7095263278161822,
+    "note": "Exploratory external evaluation. Patient-level aggregation was used because the dataset contains repeated/augmented rows per patient."
+  }
+}
