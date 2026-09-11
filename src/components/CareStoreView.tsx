@@ -97,14 +97,14 @@ export const CareStoreView: React.FC<CareStoreViewProps> = ({
   const t = (key: string) => getTranslation(currentLanguage, key);
 
   const categories = [
-    { id: 'all', label: 'All Products', icon: Sparkles, count: products.length },
-    { id: 'nutrition_supplements', label: 'Period Tablets & Nutrition', icon: Pill, count: products.filter(p => p.category === 'nutrition_supplements').length },
-    { id: 'pain_relief', label: 'Cramp Comfort & Hot Bags', icon: Flame, count: products.filter(p => p.category === 'pain_relief').length },
-    { id: 'smart_devices', label: 'Smart Care Devices', icon: Zap, count: products.filter(p => p.category === 'smart_devices').length },
-    { id: 'biodegradable_pads', label: 'Bio-Organic & Anion Pads', icon: Leaf, count: products.filter(p => p.category === 'biodegradable_pads').length },
-    { id: 'reusable_cloth_pads', label: 'Reusable Cloth & Underwear', icon: Layers, count: products.filter(p => p.category === 'reusable_cloth_pads').length },
-    { id: 'menstrual_cups', label: 'Menstrual Cups', icon: HeartHandshake, count: products.filter(p => p.category === 'menstrual_cups').length },
-    { id: 'intimate_hygiene', label: 'Intimate Cleaners & Wipes', icon: ShieldCheck, count: products.filter(p => p.category === 'intimate_hygiene').length },
+    { id: 'all', label: t('allCategories'), icon: Sparkles, count: products.length },
+    { id: 'nutrition_supplements', label: t('catNutrition'), icon: Pill, count: products.filter(p => p.category === 'nutrition_supplements').length },
+    { id: 'pain_relief', label: t('catPainRelief'), icon: Flame, count: products.filter(p => p.category === 'pain_relief').length },
+    { id: 'smart_devices', label: t('catSmartDevices'), icon: Zap, count: products.filter(p => p.category === 'smart_devices').length },
+    { id: 'biodegradable_pads', label: t('catBiodegradablePads'), icon: Leaf, count: products.filter(p => p.category === 'biodegradable_pads').length },
+    { id: 'reusable_cloth_pads', label: t('catReusableClothPads'), icon: Layers, count: products.filter(p => p.category === 'reusable_cloth_pads').length },
+    { id: 'menstrual_cups', label: t('catMenstrualCups'), icon: HeartHandshake, count: products.filter(p => p.category === 'menstrual_cups').length },
+    { id: 'intimate_hygiene', label: t('catIntimateHygiene'), icon: ShieldCheck, count: products.filter(p => p.category === 'intimate_hygiene').length },
   ];
 
   // Filtering & Sorting
@@ -166,29 +166,29 @@ export const CareStoreView: React.FC<CareStoreViewProps> = ({
         <div className="relative z-10 max-w-2xl space-y-3">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/20 border border-white/30 text-rose-100 text-xs font-black tracking-wide">
             <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-            <span>Community Menstrual Care & Hygiene Store</span>
+            <span>{t('storeBadge')}</span>
           </div>
           <h1 className="text-3xl sm:text-4xl font-black text-white tracking-tight">
-            StreeSure Period & Wellness Essentials
+            {t('storeTitle')}
           </h1>
           <p className="text-sm font-semibold text-rose-100">
-            Find subsidized, clinically verified menstrual-care & PCOS comfort products near you.
+            {t('storeSubtitle')}
           </p>
           <p className="text-xs sm:text-sm text-rose-100/90 leading-relaxed font-normal">
-            Explore organic sanitary pads, menstrual cups, herbal cramp relief patches, heating belts, and intimate hygiene kits with discreet rural and doorstep delivery.
+            {t('storeDesc')}
           </p>
           <div className="flex flex-wrap items-center gap-4 text-xs font-semibold text-rose-100 pt-1">
             <span className="flex items-center gap-1.5 bg-white/15 px-2.5 py-1 rounded-lg">
               <ShieldCheck className="w-4 h-4 text-emerald-300" />
-              AYUSH & FDA Approved
+              {t('approvedBadge')}
             </span>
             <span className="flex items-center gap-1.5 bg-white/15 px-2.5 py-1 rounded-lg">
               <Truck className="w-4 h-4 text-teal-300" />
-              Free Rural PHC Delivery
+              {t('freeRuralDelivery')}
             </span>
             <span className="flex items-center gap-1.5 bg-white/15 px-2.5 py-1 rounded-lg">
               <Leaf className="w-4 h-4 text-emerald-300" />
-              100% Rash-Free & Certified
+              {t('rashFreeBadge')}
             </span>
           </div>
         </div>
@@ -212,13 +212,13 @@ export const CareStoreView: React.FC<CareStoreViewProps> = ({
                 </span>
               )}
             </div>
-            <span>View Care Cart</span>
+            <span>{t('viewCartBtn')}</span>
             <span className="bg-rose-100 text-rose-900 px-2.5 py-0.5 rounded-lg font-mono font-black">
               ₹{cartTotal}
             </span>
           </button>
           <span className="text-xs text-rose-100 font-medium">
-            Cash on Delivery & Instant UPI Available
+            {t('codUpiAvailable')}
           </span>
         </div>
       </div>
@@ -233,17 +233,17 @@ export const CareStoreView: React.FC<CareStoreViewProps> = ({
             <div className="flex items-center gap-2 flex-wrap">
               <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-100 text-emerald-800 border border-emerald-300 flex items-center gap-1">
                 <Radio className="w-3 h-3 text-emerald-600 animate-ping" />
-                Zepto & Blinkit Rural Quick Hubs Active
+                {t('darkStoreBadge')}
               </span>
               <span className="text-xs text-emerald-700 font-bold">
-                ⚡ 15–25 Mins Doorstep Delivery in Villages
+                ⚡ {t('darkStoreSpeed')}
               </span>
             </div>
             <h3 className="text-sm sm:text-base font-extrabold text-slate-900">
-              Rural Micro-Dark Stores Delivering Tablets, Hot Bags, Patches & Pads
+              {t('darkStoreTitle')}
             </h3>
             <p className="text-xs text-slate-600 font-normal">
-              Discreet, tamper-proof packaging delivered to remote hamlets, farms, and village homes via electric bikes & ASHA Sanginis.
+              {t('darkStoreDesc')}
             </p>
           </div>
         </div>
@@ -255,7 +255,7 @@ export const CareStoreView: React.FC<CareStoreViewProps> = ({
           className="px-5 py-3 rounded-2xl btn-rose-primary text-white text-xs font-bold shadow-md flex items-center gap-2 shrink-0 transition hover:scale-102"
         >
           <Navigation className="w-4 h-4 text-white animate-spin duration-3000" />
-          <span>View Village Dark-Stores & Live GPS Route</span>
+          <span>{t('darkStoreMapBtn')}</span>
         </button>
       </div>
 
@@ -264,10 +264,10 @@ export const CareStoreView: React.FC<CareStoreViewProps> = ({
         <Info className="w-5 h-5 text-rose-600 shrink-0 mt-0.5" />
         <div className="space-y-1">
           <p>
-            <strong className="text-slate-900 font-bold">Healthcare & Safety Guidance:</strong> Products available in the StreeSure Care Store include herbal pain supplements, thermal heating aids, smart electrotherapy units, and hygienic disposables designed for cycle comfort. They are not intended to replace formal prescription medical therapies for severe clinical conditions.
+            <strong className="text-slate-900 font-bold">{t('safetyNoticeTitle')}:</strong> {t('safetyNoticeDesc')}
           </p>
           <p className="text-[11px] text-slate-600 font-medium">
-            For unmanageable pelvic pain or suspected severe endometriosis, please consult our verified gynecologists via the Tele-Consultation tab.
+            {t('safetyNoticeGynPrompt')}
           </p>
         </div>
       </div>
@@ -282,7 +282,7 @@ export const CareStoreView: React.FC<CareStoreViewProps> = ({
             id="store-search-input"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search tablets, hot bags, patches, pads, devices..."
+            placeholder={t('searchCareStorePlaceholder')}
             className="w-full pl-10 pr-8 py-2.5 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 placeholder:text-slate-400 text-xs font-medium focus:outline-none focus:bg-white focus:border-rose-500 focus:ring-2 focus:ring-rose-200 transition"
           />
           {searchQuery && (
@@ -299,19 +299,19 @@ export const CareStoreView: React.FC<CareStoreViewProps> = ({
         {/* Sort Dropdown & Item Count */}
         <div className="flex items-center justify-between w-full md:w-auto gap-3 text-xs">
           <span className="text-slate-600 whitespace-nowrap font-medium">
-            Showing <strong className="text-slate-900 font-bold">{filteredProducts.length}</strong> items
+            {t('showingItemsPrefix')} <strong className="text-slate-900 font-bold">{filteredProducts.length}</strong> {t('itemsSuffix')}
           </span>
           <div className="flex items-center gap-2">
-            <span className="text-slate-600 font-semibold">Sort by:</span>
+            <span className="text-slate-600 font-semibold">{t('sortByLabel')}:</span>
             <select
               value={sortBy}
               onChange={(e: any) => setSortBy(e.target.value)}
               className="bg-slate-50 border border-slate-300 text-slate-900 text-xs font-semibold rounded-xl px-3 py-2 focus:outline-none focus:border-rose-500 cursor-pointer"
             >
-              <option value="featured">Featured / Recommended</option>
-              <option value="price_low">Price: Low to High</option>
-              <option value="price_high">Price: High to Low</option>
-              <option value="rating">Highest Customer Rating</option>
+              <option value="featured">{t('sortFeatured')}</option>
+              <option value="price_low">{t('sortPriceLow')}</option>
+              <option value="price_high">{t('sortPriceHigh')}</option>
+              <option value="rating">{t('sortRating')}</option>
             </select>
           </div>
         </div>
@@ -773,10 +773,10 @@ export const CareStoreView: React.FC<CareStoreViewProps> = ({
                   </div>
                   <div>
                     <h3 className="text-base font-black text-slate-900">
-                      Your Care Cart
+                      {t('cartDrawerTitle')}
                     </h3>
                     <span className="text-xs text-slate-500 font-medium">
-                      {cart.length} unique item{cart.length === 1 ? '' : 's'}
+                      {cart.length} {t('cartItemsCountSuffix')}
                     </span>
                   </div>
                 </div>
@@ -792,19 +792,19 @@ export const CareStoreView: React.FC<CareStoreViewProps> = ({
               {/* Step Flow Indicators */}
               <div className="flex items-center justify-between py-3 px-1 border-b border-rose-100 text-xs font-bold overflow-x-auto">
                 <span className={checkoutStep === 'cart' ? 'text-rose-600 underline underline-offset-4' : 'text-slate-400'}>
-                  1. Items
+                  {t('stepCart')}
                 </span>
                 <span className="text-slate-300">→</span>
                 <span className={checkoutStep === 'address' ? 'text-rose-600 underline underline-offset-4' : 'text-slate-400'}>
-                  2. Address
+                  {t('stepAddress')}
                 </span>
                 <span className="text-slate-300">→</span>
                 <span className={checkoutStep === 'partner' ? 'text-rose-600 underline underline-offset-4' : 'text-slate-400'}>
-                  3. Partner
+                  {t('stepPartner')}
                 </span>
                 <span className="text-slate-300">→</span>
                 <span className={checkoutStep === 'payment' ? 'text-rose-600 underline underline-offset-4' : 'text-slate-400'}>
-                  4. Payment
+                  {t('stepPayment')}
                 </span>
               </div>
 
@@ -815,14 +815,14 @@ export const CareStoreView: React.FC<CareStoreViewProps> = ({
                     <div className="text-center py-16 space-y-3">
                       <ShoppingBag className="w-12 h-12 text-rose-300 mx-auto" />
                       <p className="text-xs text-slate-500 font-medium">
-                        Your care cart is currently empty.
+                        {t('emptyCartNotice')}
                       </p>
                       <button
                         type="button"
                         onClick={() => setShowCartDrawer(false)}
                         className="px-4 py-2 rounded-full btn-rose-primary text-xs font-bold"
                       >
-                        Explore Essentials
+                        {t('exploreEssentialsBtn')}
                       </button>
                     </div>
                   ) : (
@@ -894,7 +894,7 @@ export const CareStoreView: React.FC<CareStoreViewProps> = ({
                           type="text"
                           value={couponCode}
                           onChange={(e) => setCouponCode(e.target.value)}
-                          placeholder="Coupon: STREESURE20 or RURALCARE"
+                          placeholder={t('couponPlaceholder')}
                           className="flex-1 px-3 py-2 rounded-xl bg-slate-50 border border-slate-300 text-slate-900 placeholder:text-slate-400 text-xs focus:outline-none focus:bg-white focus:border-rose-500 font-mono uppercase font-semibold"
                         />
                         <button
@@ -902,7 +902,7 @@ export const CareStoreView: React.FC<CareStoreViewProps> = ({
                           onClick={handleApplyCoupon}
                           className="px-3.5 py-2 rounded-xl bg-rose-100 hover:bg-rose-200 text-rose-900 text-xs font-bold border border-rose-300 transition"
                         >
-                          Apply
+                          {t('applyCouponBtn')}
                         </button>
                       </div>
                       {couponSuccess && (
@@ -924,12 +924,12 @@ export const CareStoreView: React.FC<CareStoreViewProps> = ({
               {checkoutStep === 'address' && (
                 <div className="space-y-3.5 py-4">
                   <h4 className="text-xs font-bold text-rose-800 uppercase tracking-wider">
-                    Rural / Village Delivery Address
+                    {t('recipientAddressLabel')}
                   </h4>
                   <div className="space-y-2.5 text-xs">
                     <div>
                       <label className="text-xs text-slate-700 font-bold block mb-1">
-                        Recipient Full Name
+                        {t('recipientNameLabel')}
                       </label>
                       <input
                         type="text"
@@ -940,7 +940,7 @@ export const CareStoreView: React.FC<CareStoreViewProps> = ({
                     </div>
                     <div>
                       <label className="text-xs text-slate-700 font-bold block mb-1">
-                        Mobile Phone (For ASHA / Delivery Updates)
+                        {t('recipientPhoneLabel')}
                       </label>
                       <input
                         type="text"
@@ -951,7 +951,7 @@ export const CareStoreView: React.FC<CareStoreViewProps> = ({
                     </div>
                     <div>
                       <label className="text-xs text-slate-700 font-bold block mb-1">
-                        Village / Ward / Street Address
+                        {t('recipientAddressLabel')}
                       </label>
                       <input
                         type="text"
@@ -963,7 +963,7 @@ export const CareStoreView: React.FC<CareStoreViewProps> = ({
                     <div className="grid grid-cols-2 gap-2">
                       <div>
                         <label className="text-xs text-slate-700 font-bold block mb-1">
-                          District / City
+                          {t('districtLabel')}
                         </label>
                         <input
                           type="text"
@@ -974,7 +974,7 @@ export const CareStoreView: React.FC<CareStoreViewProps> = ({
                       </div>
                       <div>
                         <label className="text-xs text-slate-700 font-bold block mb-1">
-                          PIN Code
+                          {t('pincodeLabel')}
                         </label>
                         <input
                           type="text"
@@ -993,13 +993,13 @@ export const CareStoreView: React.FC<CareStoreViewProps> = ({
                 <div className="space-y-3.5 py-4">
                   <div>
                     <h4 className="text-xs font-bold text-rose-800 uppercase tracking-wider flex items-center justify-between">
-                      <span>Select Village Delivery Partner</span>
+                      <span>{t('selectPartnerTitle')}</span>
                       <span className="text-[10px] text-emerald-700 font-bold">
-                        ⚡ Quick Village Commerce
+                        ⚡ {t('freeDeliveryText')}
                       </span>
                     </h4>
                     <p className="text-xs text-slate-600 mt-1 font-medium">
-                      Choose your preferred rural delivery fleet or community healthcare runner.
+                      {t('selectPartnerSubtitle')}
                     </p>
                   </div>
 
@@ -1034,7 +1034,7 @@ export const CareStoreView: React.FC<CareStoreViewProps> = ({
                                   </span>
                                 </div>
                                 <p className="text-xs text-slate-600 font-medium">
-                                  Rider: <strong className="text-slate-900">{partner.riderName}</strong> ({partner.vehicleType})
+                                  {t('riderLabel')} <strong className="text-slate-900">{partner.riderName}</strong> ({partner.vehicleType})
                                 </p>
                               </div>
                             </div>
@@ -1044,7 +1044,7 @@ export const CareStoreView: React.FC<CareStoreViewProps> = ({
                                 ⚡ {partner.estimatedTime || `${partner.estimatedMinutes} Mins`}
                               </span>
                               <span className="text-[10px] text-slate-500 font-mono mt-0.5 block font-semibold">
-                                {partner.distanceKm} km away
+                                {partner.distanceKm} km {t('awayLabel')}
                               </span>
                             </div>
                           </div>
@@ -1052,13 +1052,13 @@ export const CareStoreView: React.FC<CareStoreViewProps> = ({
                           <div className="flex items-center justify-between text-xs pt-1 border-t border-rose-100 text-slate-600 font-medium">
                             <span className="flex items-center gap-1">
                               <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-                              {partner.discreetPackaging !== false ? 'Discreet Tamper-Proof' : 'Eco-Bag'}
+                              {partner.discreetPackaging !== false ? t('discreetPackagingText') : 'Eco-Bag'}
                             </span>
                             <span className="text-amber-700 font-bold">
                               ★ {partner.rating} ({partner.totalDeliveries}+)
                             </span>
                             <span className="text-emerald-700 font-bold">
-                              {(partner.deliveryFeeInr ?? partner.deliveryFee) === 0 ? 'FREE' : `₹${partner.deliveryFeeInr ?? partner.deliveryFee}`}
+                              {(partner.deliveryFeeInr ?? partner.deliveryFee) === 0 ? t('freeDeliveryText') : `₹${partner.deliveryFeeInr ?? partner.deliveryFee}`}
                             </span>
                           </div>
                         </div>
@@ -1072,7 +1072,7 @@ export const CareStoreView: React.FC<CareStoreViewProps> = ({
               {checkoutStep === 'payment' && (
                 <div className="space-y-4 py-4">
                   <h4 className="text-xs font-bold text-rose-800 uppercase tracking-wider">
-                    Select Payment Mode
+                    {t('selectPaymentTitle')}
                   </h4>
                   <div className="space-y-2 text-xs">
                     <label
@@ -1086,8 +1086,8 @@ export const CareStoreView: React.FC<CareStoreViewProps> = ({
                       <div className="flex items-center gap-2.5">
                         <Zap className="w-4 h-4 text-amber-500" />
                         <div>
-                          <span className="font-bold block">Instant UPI (GPay / PhonePe / Paytm)</span>
-                          <span className="text-[10px] text-slate-500">Fast simulated QR Code & instant confirmation</span>
+                          <span className="font-bold block">{t('payUpiTitle')}</span>
+                          <span className="text-[10px] text-slate-500">{t('payUpiSub')}</span>
                         </div>
                       </div>
                       <input
@@ -1109,8 +1109,8 @@ export const CareStoreView: React.FC<CareStoreViewProps> = ({
                       <div className="flex items-center gap-2.5">
                         <Truck className="w-4 h-4 text-emerald-600" />
                         <div>
-                          <span className="font-bold block">Cash on Delivery (COD)</span>
-                          <span className="text-[10px] text-slate-500">Pay at doorstep or to ASHA Facilitator</span>
+                          <span className="font-bold block">{t('payCodTitle')}</span>
+                          <span className="text-[10px] text-slate-500">{t('payCodSub')}</span>
                         </div>
                       </div>
                       <input
@@ -1132,8 +1132,8 @@ export const CareStoreView: React.FC<CareStoreViewProps> = ({
                       <div className="flex items-center gap-2.5">
                         <CreditCard className="w-4 h-4 text-indigo-600" />
                         <div>
-                          <span className="font-bold block">RuPay / Debit / Credit Card</span>
-                          <span className="text-[10px] text-slate-500">100% Encrypted & Subsidized Portal</span>
+                          <span className="font-bold block">{t('payCardTitle')}</span>
+                          <span className="text-[10px] text-slate-500">{t('payCardSub')}</span>
                         </div>
                       </div>
                       <input
@@ -1155,13 +1155,13 @@ export const CareStoreView: React.FC<CareStoreViewProps> = ({
                   </div>
                   <div className="space-y-1">
                     <span className="text-xs font-mono text-emerald-700 font-bold tracking-wider uppercase">
-                      Order Confirmed #{orderTrackingId}
+                      {t('orderSuccessTitle')} #{orderTrackingId}
                     </span>
                     <h3 className="text-xl font-extrabold text-slate-900">
-                      Dispatched to {selectedDeliveryPartner.partnerLabel}!
+                      {t('orderSuccessSubtitle')}
                     </h3>
                     <p className="text-xs text-slate-600 max-w-xs mx-auto font-medium">
-                      Your period care package is packed and out for delivery. Rider {selectedDeliveryPartner.riderName} is en route.
+                      {t('trackWithAshaText')}
                     </p>
                   </div>
 
@@ -1200,7 +1200,7 @@ export const CareStoreView: React.FC<CareStoreViewProps> = ({
                     onClick={handleCloseCart}
                     className="w-full py-2.5 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition"
                   >
-                    Return to Store
+                    {t('continueShoppingBtn')}
                   </button>
                 </div>
               )}
@@ -1211,23 +1211,23 @@ export const CareStoreView: React.FC<CareStoreViewProps> = ({
               <div className="pt-4 border-t border-rose-100 space-y-3">
                 <div className="space-y-1 text-xs text-slate-600 font-medium">
                   <div className="flex justify-between">
-                    <span>Subtotal:</span>
+                    <span>{t('cartSubtotalLabel')}:</span>
                     <span className="font-mono text-slate-900 font-bold">₹{cartSubtotal}</span>
                   </div>
                   {appliedDiscount > 0 && (
                     <div className="flex justify-between text-emerald-700 font-semibold">
-                      <span>Subsidy Discount ({appliedDiscount}%):</span>
+                      <span>{t('discountLabel')} ({appliedDiscount}%):</span>
                       <span className="font-mono">-₹{discountAmount}</span>
                     </div>
                   )}
                   <div className="flex justify-between">
                     <span>Village Delivery ({selectedDeliveryPartner.partnerLabel}):</span>
                     <span className="text-emerald-700 font-bold">
-                      {(selectedDeliveryPartner.deliveryFeeInr ?? selectedDeliveryPartner.deliveryFee ?? 0) === 0 ? 'FREE' : `₹${selectedDeliveryPartner.deliveryFeeInr ?? selectedDeliveryPartner.deliveryFee}`}
+                      {(selectedDeliveryPartner.deliveryFeeInr ?? selectedDeliveryPartner.deliveryFee ?? 0) === 0 ? t('freeDeliveryText') : `₹${selectedDeliveryPartner.deliveryFeeInr ?? selectedDeliveryPartner.deliveryFee}`}
                     </span>
                   </div>
                   <div className="flex justify-between text-sm font-black text-slate-900 pt-2 border-t border-rose-100">
-                    <span>Total Amount:</span>
+                    <span>{t('cartTotalLabel')}:</span>
                     <span className="font-mono text-lg text-rose-700">₹{cartTotal + (selectedDeliveryPartner.deliveryFeeInr ?? selectedDeliveryPartner.deliveryFee ?? 0)}</span>
                   </div>
                 </div>
@@ -1239,7 +1239,7 @@ export const CareStoreView: React.FC<CareStoreViewProps> = ({
                     onClick={() => setCheckoutStep('address')}
                     className="w-full py-3.5 rounded-2xl btn-rose-primary text-xs sm:text-sm font-bold shadow-md flex items-center justify-center gap-2 hover:scale-102 transition"
                   >
-                    <span>Proceed to Delivery Address</span>
+                    <span>{t('checkoutToAddressBtn')}</span>
                     <ArrowRight className="w-4 h-4" />
                   </button>
                 )}
@@ -1251,7 +1251,7 @@ export const CareStoreView: React.FC<CareStoreViewProps> = ({
                       onClick={() => setCheckoutStep('cart')}
                       className="px-4 py-3 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold border border-slate-200"
                     >
-                      Back
+                      {t('btnCancel')}
                     </button>
                     <button
                       type="button"
@@ -1259,7 +1259,7 @@ export const CareStoreView: React.FC<CareStoreViewProps> = ({
                       onClick={() => setCheckoutStep('partner')}
                       className="flex-1 py-3 rounded-2xl btn-rose-primary text-xs sm:text-sm font-bold shadow-md flex items-center justify-center gap-2"
                     >
-                      <span>Select Delivery Partner</span>
+                      <span>{t('checkoutToPartnerBtn')}</span>
                       <ArrowRight className="w-4 h-4" />
                     </button>
                   </div>
@@ -1272,7 +1272,7 @@ export const CareStoreView: React.FC<CareStoreViewProps> = ({
                       onClick={() => setCheckoutStep('address')}
                       className="px-4 py-3 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold border border-slate-200"
                     >
-                      Back
+                      {t('btnCancel')}
                     </button>
                     <button
                       type="button"
@@ -1280,7 +1280,7 @@ export const CareStoreView: React.FC<CareStoreViewProps> = ({
                       onClick={() => setCheckoutStep('payment')}
                       className="flex-1 py-3 rounded-2xl btn-rose-primary text-xs sm:text-sm font-bold shadow-md flex items-center justify-center gap-2"
                     >
-                      <span>Proceed to Payment</span>
+                      <span>{t('checkoutToPaymentBtn')}</span>
                       <ArrowRight className="w-4 h-4" />
                     </button>
                   </div>
@@ -1293,7 +1293,7 @@ export const CareStoreView: React.FC<CareStoreViewProps> = ({
                       onClick={() => setCheckoutStep('partner')}
                       className="px-4 py-3 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold border border-slate-200"
                     >
-                      Back
+                      {t('btnCancel')}
                     </button>
                     <button
                       type="button"
@@ -1302,7 +1302,7 @@ export const CareStoreView: React.FC<CareStoreViewProps> = ({
                       className="flex-1 py-3.5 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white text-xs sm:text-sm font-black shadow-md flex items-center justify-center gap-2 hover:scale-102 transition"
                     >
                       <Check className="w-4 h-4" />
-                      <span>Confirm Order (₹{cartTotal + (selectedDeliveryPartner.deliveryFeeInr ?? selectedDeliveryPartner.deliveryFee ?? 0)})</span>
+                      <span>{t('placeOrderBtn')} (₹{cartTotal + (selectedDeliveryPartner.deliveryFeeInr ?? selectedDeliveryPartner.deliveryFee ?? 0)})</span>
                     </button>
                   </div>
                 )}

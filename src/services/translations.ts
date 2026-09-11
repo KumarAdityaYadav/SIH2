@@ -1,5 +1,6 @@
 import { LanguageCode, LanguageInfo } from '../types';
 import { SCREENING_TRANSLATIONS } from './screeningTranslations';
+import { MODULE_TRANSLATIONS } from './moduleTranslations';
 
 export const SUPPORTED_LANGUAGES: LanguageInfo[] = [
   { code: 'en', label: 'English', nativeLabel: 'English' },
@@ -1165,11 +1166,17 @@ export const translations: Record<LanguageCode, Record<string, string>> = {
 };
 
 export function getTranslation(lang: LanguageCode, key: string): string {
+  if (MODULE_TRANSLATIONS[lang] && MODULE_TRANSLATIONS[lang][key]) {
+    return MODULE_TRANSLATIONS[lang][key];
+  }
   if (SCREENING_TRANSLATIONS[lang] && SCREENING_TRANSLATIONS[lang][key]) {
     return SCREENING_TRANSLATIONS[lang][key];
   }
   if (translations[lang] && translations[lang][key]) {
     return translations[lang][key];
+  }
+  if (MODULE_TRANSLATIONS['en'] && MODULE_TRANSLATIONS['en'][key]) {
+    return MODULE_TRANSLATIONS['en'][key];
   }
   if (SCREENING_TRANSLATIONS['en'] && SCREENING_TRANSLATIONS['en'][key]) {
     return SCREENING_TRANSLATIONS['en'][key];

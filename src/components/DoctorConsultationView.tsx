@@ -111,22 +111,22 @@ export const DoctorConsultationView: React.FC<DoctorConsultationViewProps> = ({
         <div>
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/15 text-teal-100 text-xs font-bold mb-2">
             <Stethoscope className="w-3.5 h-3.5" />
-            <span>Verified Clinical Network</span>
+            <span>{t('gynecologyNetworkBadge')}</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-black">
-            Verified Gynecologist Consultations
+            {t('gynecologyTitle')}
           </h1>
           <p className="text-xs sm:text-sm text-teal-100 mt-1 max-w-xl">
-            Connect with certified women's health specialists for clinical evaluation, ultrasound reviews, and personalized care in your mother tongue.
+            {t('gynecologySubtitle')}
           </p>
         </div>
 
         <div className="bg-white/10 backdrop-blur-md p-3.5 rounded-2xl border border-white/20 text-center shrink-0">
           <span className="text-[10px] uppercase font-bold text-teal-200 block">
-            Subsidized Care
+            {t('subsidizedCareTag')}
           </span>
           <span className="text-2xl font-black text-white">₹149 – ₹199</span>
-          <span className="text-[10px] text-teal-100 block">Per 20-min session</span>
+          <span className="text-[10px] text-teal-100 block">{t('perSessionRate')}</span>
         </div>
       </div>
 
@@ -137,7 +137,7 @@ export const DoctorConsultationView: React.FC<DoctorConsultationViewProps> = ({
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search by doctor name, specialty, or clinic..."
+            placeholder={t('searchDoctorPlaceholder')}
             className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-teal-500 focus:outline-hidden"
           />
           <Search className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
@@ -149,7 +149,7 @@ export const DoctorConsultationView: React.FC<DoctorConsultationViewProps> = ({
             onChange={(e) => setSelectedLanguageFilter(e.target.value)}
             className="px-3 py-2.5 rounded-xl border border-slate-200 text-xs font-semibold bg-slate-50 cursor-pointer"
           >
-            <option value="all">All Languages</option>
+            <option value="all">{t('allLanguages')}</option>
             {SUPPORTED_LANGUAGES.map((l) => (
               <option key={l.code} value={l.code}>
                 {l.nativeLabel} ({l.label})
@@ -162,10 +162,10 @@ export const DoctorConsultationView: React.FC<DoctorConsultationViewProps> = ({
             onChange={(e) => setSelectedSpecialtyFilter(e.target.value)}
             className="px-3 py-2.5 rounded-xl border border-slate-200 text-xs font-semibold bg-slate-50 cursor-pointer"
           >
-            <option value="all">All Specialties</option>
-            <option value="Obstetrics">Obstetrics & Gynecology</option>
-            <option value="Endocrinology">Endocrinology & Hormones</option>
-            <option value="Reproductive">Reproductive Medicine</option>
+            <option value="all">{t('allSpecialties')}</option>
+            <option value="Obstetrics">{t('specObstetrics')}</option>
+            <option value="Endocrinology">{t('specEndocrinology')}</option>
+            <option value="Reproductive">{t('specReproductive')}</option>
           </select>
         </div>
       </div>
@@ -188,7 +188,7 @@ export const DoctorConsultationView: React.FC<DoctorConsultationViewProps> = ({
                   <div className="flex items-center gap-1.5">
                     <h3 className="text-sm font-bold text-slate-900 truncate">{doc.fullName}</h3>
                     {doc.isVerified && (
-                      <span title="Verified Medical Practitioner">
+                      <span title={t('verifiedSpecialistBadge')}>
                         <CheckCircle2 className="w-4 h-4 text-teal-600 shrink-0" />
                       </span>
                     )}
@@ -204,18 +204,18 @@ export const DoctorConsultationView: React.FC<DoctorConsultationViewProps> = ({
 
               <div className="space-y-1.5 text-xs text-slate-600 border-t border-slate-100 pt-3 mb-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-slate-400">Experience:</span>
-                  <span className="font-semibold text-slate-800">{doc.yearsOfExperience} Years</span>
+                  <span className="text-slate-400">{t('experienceLabel')}</span>
+                  <span className="font-semibold text-slate-800">{doc.yearsOfExperience} {t('yearsExperience')}</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-slate-400">Rating:</span>
+                  <span className="text-slate-400">{t('ratingLabel')}</span>
                   <span className="font-semibold text-slate-800 flex items-center gap-1">
                     <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
-                    <span>{doc.rating} ({doc.reviewsCount} reviews)</span>
+                    <span>{doc.rating} ({doc.reviewsCount} {t('reviewsCountSuffix')})</span>
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-slate-400">Languages:</span>
+                  <span className="text-slate-400">{t('languagesLabel')}</span>
                   <span className="font-medium text-slate-800 capitalize">
                     {(doc.languagesSpoken || doc.languages || []).join(', ')}
                   </span>
@@ -225,7 +225,7 @@ export const DoctorConsultationView: React.FC<DoctorConsultationViewProps> = ({
 
             <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
               <div>
-                <span className="text-[10px] text-slate-400 block">Consultation Fee</span>
+                <span className="text-[10px] text-slate-400 block">{t('consultationFeeLabel')}</span>
                 <span className="text-base font-extrabold text-slate-900">
                   ₹{doc.consultationFeeInr}
                 </span>
@@ -238,7 +238,7 @@ export const DoctorConsultationView: React.FC<DoctorConsultationViewProps> = ({
                 className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-teal-700 hover:bg-teal-800 text-white text-xs font-bold shadow-md shadow-teal-200 transition hover:scale-105"
               >
                 <Calendar className="w-3.5 h-3.5" />
-                <span>Book Slot</span>
+                <span>{t('bookSlotBtn')}</span>
               </button>
             </div>
           </div>
@@ -268,7 +268,7 @@ export const DoctorConsultationView: React.FC<DoctorConsultationViewProps> = ({
 
             <div className="space-y-4 text-xs">
               <div>
-                <label className="block font-bold text-slate-700 mb-1">Select Date</label>
+                <label className="block font-bold text-slate-700 mb-1">{t('selectDateLabel')}</label>
                 <input
                   type="date"
                   value={selectedDate}
@@ -278,7 +278,7 @@ export const DoctorConsultationView: React.FC<DoctorConsultationViewProps> = ({
               </div>
 
               <div>
-                <label className="block font-bold text-slate-700 mb-1">Available Time Slots</label>
+                <label className="block font-bold text-slate-700 mb-1">{t('selectSlotLabel')}</label>
                 <div className="grid grid-cols-3 gap-2">
                   {(selectedDoctor.availableSlots || ['10:00 AM', '02:00 PM', '05:00 PM']).map((slot) => (
                     <button
@@ -298,12 +298,12 @@ export const DoctorConsultationView: React.FC<DoctorConsultationViewProps> = ({
               </div>
 
               <div>
-                <label className="block font-bold text-slate-700 mb-1">Consultation Mode</label>
+                <label className="block font-bold text-slate-700 mb-1">{t('consultationModeLabel')}</label>
                 <div className="grid grid-cols-3 gap-2">
                   {[
-                    { key: 'video', label: 'Video Call', icon: Video },
-                    { key: 'audio', label: 'Audio Call', icon: Phone },
-                    { key: 'chat', label: 'Private Chat', icon: Clock },
+                    { key: 'video', label: t('modeVideo'), icon: Video },
+                    { key: 'audio', label: t('modeAudio'), icon: Phone },
+                    { key: 'chat', label: t('modeChat'), icon: Clock },
                   ].map((m) => {
                     const Icon = m.icon;
                     return (
@@ -327,7 +327,7 @@ export const DoctorConsultationView: React.FC<DoctorConsultationViewProps> = ({
 
               <div>
                 <label className="block font-bold text-slate-700 mb-1">
-                  Reason for Consultation / Questions
+                  {t('chiefComplaintLabel')}
                 </label>
                 <textarea
                   value={chiefComplaint}
@@ -345,21 +345,21 @@ export const DoctorConsultationView: React.FC<DoctorConsultationViewProps> = ({
                   className="rounded-sm text-teal-600 focus:ring-teal-500 mt-0.5"
                 />
                 <span className="text-[11px] text-teal-900">
-                  Securely share my latest StreeSure non-diagnostic screening summary with the doctor prior to the call.
+                  {t('consentScreeningLabel')}
                 </span>
               </label>
 
               {/* Simulated UPI Payment Prototype */}
               <div className="bg-slate-50 p-3.5 rounded-2xl border border-slate-200 space-y-2">
                 <div className="flex items-center justify-between font-bold">
-                  <span>Total Amount Payable:</span>
+                  <span>{t('cartTotalLabel')}:</span>
                   <span className="text-slate-900 text-sm">
                     ₹{selectedDoctor.consultationFeeInr}
                   </span>
                 </div>
                 <div className="flex items-center gap-2 text-[11px] text-slate-500">
                   <CreditCard className="w-3.5 h-3.5 text-teal-600" />
-                  <span>Subsidized payment via UPI / Netbanking / Rupay (Prototype)</span>
+                  <span>{t('subsidizedRateNote')}</span>
                 </div>
               </div>
 
@@ -369,7 +369,7 @@ export const DoctorConsultationView: React.FC<DoctorConsultationViewProps> = ({
                   onClick={() => setSelectedDoctor(null)}
                   className="px-4 py-2 rounded-xl border border-slate-200 text-slate-600 font-bold"
                 >
-                  Cancel
+                  {t('btnCancel')}
                 </button>
                 <button
                   type="button"
@@ -378,11 +378,11 @@ export const DoctorConsultationView: React.FC<DoctorConsultationViewProps> = ({
                   className="px-6 py-2.5 rounded-xl bg-teal-700 hover:bg-teal-800 text-white font-bold shadow-md shadow-teal-200 flex items-center gap-2 transition"
                 >
                   {isProcessingPayment ? (
-                    <span>Processing Secure UPI...</span>
+                    <span>{t('processingBookingText')}</span>
                   ) : (
                     <>
                       <Check className="w-4 h-4" />
-                      <span>Pay ₹{selectedDoctor.consultationFeeInr} & Confirm</span>
+                      <span>{t('payAndConfirmBtn')} (₹{selectedDoctor.consultationFeeInr})</span>
                     </>
                   )}
                 </button>
@@ -401,35 +401,35 @@ export const DoctorConsultationView: React.FC<DoctorConsultationViewProps> = ({
             </div>
 
             <div>
-              <h3 className="text-xl font-bold text-slate-900">Appointment Confirmed!</h3>
+              <h3 className="text-xl font-bold text-slate-900">{t('bookingSuccessTitle')}</h3>
               <p className="text-xs text-slate-500 mt-1">
-                Your teleconsultation with {bookingSuccessModal.doctorName} is booked.
+                {t('bookingSuccessSubtitle')} ({bookingSuccessModal.doctorName})
               </p>
             </div>
 
             <div className="bg-slate-50 p-3.5 rounded-2xl border border-slate-200 text-xs text-left space-y-1.5">
               <div className="flex justify-between">
-                <span className="text-slate-500">Date & Slot:</span>
+                <span className="text-slate-500">{t('appointmentTimeLabel')}:</span>
                 <span className="font-bold text-slate-900">
                   {new Date(bookingSuccessModal.scheduledAt).toLocaleDateString()} at{' '}
                   {bookingSuccessModal.scheduledAt.split('T')[1].substring(0, 5)}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-500">Mode:</span>
+                <span className="text-slate-500">{t('appointmentModeLabel')}:</span>
                 <span className="font-bold text-slate-900 capitalize">
-                  {bookingSuccessModal.mode} Session
+                  {bookingSuccessModal.mode}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-500">Meeting Link:</span>
+                <span className="text-slate-500">Video Link:</span>
                 <a
                   href={bookingSuccessModal.meetingLink}
                   target="_blank"
                   rel="noreferrer"
                   className="font-bold text-teal-700 underline"
                 >
-                  Join Video Room ↗
+                  {t('joinMeetingBtn')} ↗
                 </a>
               </div>
             </div>
@@ -439,7 +439,7 @@ export const DoctorConsultationView: React.FC<DoctorConsultationViewProps> = ({
               onClick={() => setBookingSuccessModal(null)}
               className="w-full py-3 rounded-xl bg-slate-900 text-white text-xs font-bold hover:bg-slate-800 transition"
             >
-              Done & Return to Portal
+              {t('doneBtn')}
             </button>
           </div>
         </div>

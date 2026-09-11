@@ -19,11 +19,13 @@ import {
   FlaskConical,
   HeartPulse,
   Info,
+  Download,
 } from 'lucide-react';
 import { LanguageCode, ScreeningResult, User } from '../types';
 import { getTranslation } from '../services/translations';
 import { speakText, stopSpeaking } from '../services/voiceService';
 import { ClinicalIntelligence } from '../services/clinicalIntelligence';
+import { PdfReportModal } from './PdfReportModal';
 
 interface ScreeningResultViewProps {
   result: ScreeningResult;
@@ -52,6 +54,7 @@ export const ScreeningResultView: React.FC<ScreeningResultViewProps> = ({
   const [showFullBreakdown, setShowFullBreakdown] = useState(true);
   const [intelligence, setIntelligence] = useState<ClinicalIntelligence | null>(null);
   const [intelligenceLoading, setIntelligenceLoading] = useState(false);
+  const [showPdfModal, setShowPdfModal] = useState(false);
 
   const t = (key: string) => getTranslation(currentLanguage, key);
 
@@ -242,8 +245,18 @@ export const ScreeningResultView: React.FC<ScreeningResultViewProps> = ({
             </div>
           </div>
 
-          {/* Read aloud & 3D button */}
-          <div className="flex items-center gap-2">
+          {/* Read aloud, 3D and PDF Report buttons */}
+          <div className="flex items-center gap-2 flex-wrap">
+            <button
+              type="button"
+              id="btn-view-pdf-report-top"
+              onClick={() => setShowPdfModal(true)}
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-rose-700 hover:bg-rose-800 text-white text-xs font-bold shadow-sm transition"
+            >
+              <FileText className="w-4 h-4" />
+              <span>{t('pdfReportBtn')}</span>
+            </button>
+
             <button
               type="button"
               onClick={handleReadAloud}
@@ -671,18 +684,38 @@ export const ScreeningResultView: React.FC<ScreeningResultViewProps> = ({
             ← Retake or update screening answers
           </button>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <button
               type="button"
-              onClick={() => alert('Summary exported as PDF/Health Record Card.')}
+              id="btn-view-pdf-report-bottom"
+              onClick={() => setShowPdfModal(true)}
               className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold transition"
             >
               <FileText className="w-3.5 h-3.5" />
-              <span>Download Health Card</span>
+              <span>{t('pdfReportBtn')}</span>
+            </button>
+
+            <button
+              type="button"
+              id="btn-download-pdf-report-bottom"
+              onClick={() => setShowPdfModal(true)}
+              className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold transition shadow-xs"
+            >
+              <Download className="w-3.5 h-3.5" />
+              <span>{t('pdfDownloadBtn')}</span>
             </button>
           </div>
         </div>
       </div>
+
+      {/* Official PDF Report Form Modal & Exporter */}
+      <PdfReportModal
+        isOpen={showPdfModal}
+        onClose={() => setShowPdfModal(false)}
+        result={result}
+        currentUser={currentUser}
+        currentLanguage={currentLanguage}
+      />
     </div>
   );
 };

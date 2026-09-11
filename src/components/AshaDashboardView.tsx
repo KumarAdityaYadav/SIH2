@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { AshaBeneficiary, LanguageCode, User } from '../types';
 import { SEED_ASHA_BENEFICIARIES } from '../data/seedData';
+import { getTranslation } from '../services/translations';
 
 interface AshaDashboardViewProps {
   currentUser: User | null;
@@ -34,6 +35,7 @@ export const AshaDashboardView: React.FC<AshaDashboardViewProps> = ({
   onOpen3DModal,
   onOpenVoiceSaathi,
 }) => {
+  const t = (key: string) => getTranslation(currentLanguage, key);
   const [beneficiaries, setBeneficiaries] = useState<AshaBeneficiary[]>(SEED_ASHA_BENEFICIARIES);
   const [searchQuery, setSearchQuery] = useState('');
   const [showAddModal, setShowAddModal] = useState(false);
@@ -117,13 +119,13 @@ export const AshaDashboardView: React.FC<AshaDashboardViewProps> = ({
         <div>
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/15 text-teal-200 text-xs font-bold mb-2">
             <Users className="w-3.5 h-3.5" />
-            <span>ASHA Sangini Grassroots Portal</span>
+            <span>{t('ashaPortalBadge')}</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-black">
-            Namaste, {currentUser?.fullName || 'Radha Devi'} (ASHA)
+            {t('ashaGreeting')}, {currentUser?.fullName || 'Radha Devi'} ({t('ashaDesignation')})
           </h1>
           <p className="text-xs sm:text-sm text-teal-200 mt-1 max-w-xl">
-            Govindgarh Sector • Chomu Block, Jaipur • Empowering rural women with assisted voice screening and PHC referrals.
+            {t('ashaSectorTag')}
           </p>
         </div>
 
@@ -135,7 +137,7 @@ export const AshaDashboardView: React.FC<AshaDashboardViewProps> = ({
             className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-teal-500 hover:bg-teal-600 text-white text-xs font-bold shadow-md transition"
           >
             <Plus className="w-4 h-4" />
-            <span>Register Beneficiary</span>
+            <span>{t('registerBeneficiaryBtn')}</span>
           </button>
 
           <button
@@ -143,7 +145,7 @@ export const AshaDashboardView: React.FC<AshaDashboardViewProps> = ({
             onClick={onOpen3DModal}
             className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-teal-950/60 hover:bg-teal-950 text-white text-xs font-bold border border-teal-700 transition"
           >
-            <span>3D Awareness Demo</span>
+            <span>{t('demo3dBtn')}</span>
           </button>
         </div>
       </div>
@@ -152,41 +154,41 @@ export const AshaDashboardView: React.FC<AshaDashboardViewProps> = ({
       <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
         <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
           <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">
-            Registered in Village
+            {t('metricRegisteredVillage')}
           </span>
           <span className="text-3xl font-black text-slate-900">{beneficiaries.length}</span>
-          <p className="text-[11px] text-slate-500 mt-1">Beneficiaries mapped</p>
+          <p className="text-[11px] text-slate-500 mt-1">{t('metricBeneficiariesMapped')}</p>
         </div>
 
         <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
           <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">
-            Screenings Conducted
+            {t('metricScreeningsDone')}
           </span>
           <span className="text-3xl font-black text-teal-700">
             {beneficiaries.filter((b) => b.screeningStatus === 'completed').length}
           </span>
-          <p className="text-[11px] text-slate-500 mt-1">Assisted by ASHA</p>
+          <p className="text-[11px] text-slate-500 mt-1">{t('metricAssistedByAsha')}</p>
         </div>
 
         <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
           <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">
-            PHC Referrals
+            {t('metricPhcReferrals')}
           </span>
           <span className="text-3xl font-black text-rose-600">
             {beneficiaries.filter((b) => b.referralStatus === 'referred_to_phc').length}
           </span>
-          <p className="text-[11px] text-slate-500 mt-1">Sent for Doctor Consult</p>
+          <p className="text-[11px] text-slate-500 mt-1">{t('metricSentToDoctor')}</p>
         </div>
 
         <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between">
           <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">
-            Cloud Sync Status
+            {t('metricCloudSync')}
           </span>
           <div className="flex items-center gap-1.5 text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200">
             <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-            <span>All records synced (Online)</span>
+            <span>{t('metricSyncOnline')}</span>
           </div>
-          <span className="text-[10px] text-slate-400 mt-1">Auto-sync on re-connect</span>
+          <span className="text-[10px] text-slate-400 mt-1">{t('metricAutoSync')}</span>
         </div>
       </div>
 
@@ -194,9 +196,9 @@ export const AshaDashboardView: React.FC<AshaDashboardViewProps> = ({
       <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-teal-100 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h2 className="text-lg font-bold text-slate-900">Village Beneficiary Roster</h2>
+            <h2 className="text-lg font-bold text-slate-900">{t('rosterTitle')}</h2>
             <p className="text-xs text-slate-500">
-              Conduct assisted voice screenings and track clinical follow-ups
+              {t('rosterSubtitle')}
             </p>
           </div>
 
@@ -205,7 +207,7 @@ export const AshaDashboardView: React.FC<AshaDashboardViewProps> = ({
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search by name or ward..."
+              placeholder={t('searchBeneficiaryPlaceholder')}
               className="w-full pl-9 pr-4 py-2 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-teal-500 focus:outline-hidden"
             />
             <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
@@ -230,7 +232,7 @@ export const AshaDashboardView: React.FC<AshaDashboardViewProps> = ({
                           : 'bg-emerald-100 text-emerald-800'
                       }`}
                     >
-                      {b.screeningResultLevel} Level
+                      {b.screeningResultLevel} {t('levelSuffix')}
                     </span>
                   )}
                 </div>
@@ -248,7 +250,7 @@ export const AshaDashboardView: React.FC<AshaDashboardViewProps> = ({
                 >
                   <Activity className="w-3.5 h-3.5" />
                   <span>
-                    {b.screeningStatus === 'completed' ? 'Update Screening' : 'Start Screening'}
+                    {b.screeningStatus === 'completed' ? t('btnUpdateScreening') : t('btnStartScreening')}
                   </span>
                 </button>
 
@@ -259,12 +261,12 @@ export const AshaDashboardView: React.FC<AshaDashboardViewProps> = ({
                     className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-800 border border-rose-200 text-xs font-bold transition"
                   >
                     <Send className="w-3.5 h-3.5" />
-                    <span>Refer to PHC / Doctor</span>
+                    <span>{t('btnReferDoctor')}</span>
                   </button>
                 ) : (
                   <span className="text-xs font-bold text-rose-700 bg-rose-100 px-3 py-2 rounded-xl flex items-center gap-1">
                     <CheckCircle2 className="w-3.5 h-3.5" />
-                    <span>Referred to PHC</span>
+                    <span>{t('statusReferredPhc')}</span>
                   </span>
                 )}
               </div>
@@ -277,14 +279,14 @@ export const AshaDashboardView: React.FC<AshaDashboardViewProps> = ({
       {showAddModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-xs">
           <div className="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-teal-100 space-y-4">
-            <h3 className="text-xl font-bold text-slate-900">Register Village Beneficiary</h3>
+            <h3 className="text-xl font-bold text-slate-900">{t('modalRegisterTitle')}</h3>
             <p className="text-xs text-slate-500">
-              Collect basic identification and verbal/written consent for health record storage.
+              {t('modalRegisterSubtitle')}
             </p>
 
             <form onSubmit={handleAddBeneficiary} className="space-y-4 text-xs">
               <div>
-                <label className="block font-bold text-slate-700 mb-1">Beneficiary Full Name</label>
+                <label className="block font-bold text-slate-700 mb-1">{t('labelBeneficiaryName')}</label>
                 <input
                   type="text"
                   required
@@ -297,7 +299,7 @@ export const AshaDashboardView: React.FC<AshaDashboardViewProps> = ({
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">Age</label>
+                  <label className="block font-bold text-slate-700 mb-1">{t('labelAge')}</label>
                   <input
                     type="number"
                     min={12}
@@ -308,7 +310,7 @@ export const AshaDashboardView: React.FC<AshaDashboardViewProps> = ({
                   />
                 </div>
                 <div>
-                  <label className="block font-bold text-slate-700 mb-1">Mobile Contact</label>
+                  <label className="block font-bold text-slate-700 mb-1">{t('labelContact')}</label>
                   <input
                     type="text"
                     required
@@ -321,7 +323,7 @@ export const AshaDashboardView: React.FC<AshaDashboardViewProps> = ({
               </div>
 
               <div>
-                <label className="block font-bold text-slate-700 mb-1">Village / Ward / Landmark</label>
+                <label className="block font-bold text-slate-700 mb-1">{t('labelVillageWard')}</label>
                 <input
                   type="text"
                   required
@@ -340,7 +342,7 @@ export const AshaDashboardView: React.FC<AshaDashboardViewProps> = ({
                   className="rounded-sm text-teal-600 focus:ring-teal-500 mt-0.5"
                 />
                 <span className="text-[11px] text-teal-900 font-medium">
-                  I confirm that the beneficiary has provided explicit verbal or written consent for her menstrual and symptom data to be processed for risk screening.
+                  {t('labelConsentGiven')}
                 </span>
               </label>
 
@@ -350,13 +352,13 @@ export const AshaDashboardView: React.FC<AshaDashboardViewProps> = ({
                   onClick={() => setShowAddModal(false)}
                   className="px-4 py-2 rounded-xl border border-slate-200 text-slate-600 font-bold"
                 >
-                  Cancel
+                  {t('btnCancel')}
                 </button>
                 <button
                   type="submit"
                   className="px-5 py-2 rounded-xl bg-teal-700 hover:bg-teal-800 text-white font-bold"
                 >
-                  Save & Register
+                  {t('btnConfirmRegister')}
                 </button>
               </div>
             </form>
