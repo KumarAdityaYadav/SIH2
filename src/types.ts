@@ -212,6 +212,7 @@ export interface ScreeningResult {
   id: string;
   userId: string;
   date: string;
+  createdAt?: string;
   level: ScreeningLevel;
   levelTitle: string;
   levelDescription: string;

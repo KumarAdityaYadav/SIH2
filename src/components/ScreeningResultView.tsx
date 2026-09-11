@@ -20,12 +20,14 @@ import {
   HeartPulse,
   Info,
   Download,
+  Loader2,
 } from 'lucide-react';
 import { LanguageCode, ScreeningResult, User } from '../types';
 import { getTranslation } from '../services/translations';
 import { speakText, stopSpeaking } from '../services/voiceService';
 import { ClinicalIntelligence } from '../services/clinicalIntelligence';
 import { PdfReportModal } from './PdfReportModal';
+import { generateScreeningPdfReport } from '../services/pdfReportGenerator';
 
 interface ScreeningResultViewProps {
   result: ScreeningResult;
@@ -55,8 +57,31 @@ export const ScreeningResultView: React.FC<ScreeningResultViewProps> = ({
   const [intelligence, setIntelligence] = useState<ClinicalIntelligence | null>(null);
   const [intelligenceLoading, setIntelligenceLoading] = useState(false);
   const [showPdfModal, setShowPdfModal] = useState(false);
+  const [isDownloadingPdf, setIsDownloadingPdf] = useState(false);
+  const [pdfDownloadSuccess, setPdfDownloadSuccess] = useState<string | null>(null);
 
   const t = (key: string) => getTranslation(currentLanguage, key);
+
+  const handleDownloadReportPdf = async () => {
+    setIsDownloadingPdf(true);
+    try {
+      const { success, filename } = await generateScreeningPdfReport({
+        result,
+        currentUser,
+        currentLanguage,
+        intelligence,
+        aiExplanation: aiExplanationText,
+      });
+      if (success) {
+        setPdfDownloadSuccess(filename);
+        setTimeout(() => setPdfDownloadSuccess(null), 6000);
+      }
+    } catch (err) {
+      console.error('Failed to generate PDF report:', err);
+    } finally {
+      setIsDownloadingPdf(false);
+    }
+  };
 
   // Pattern styling
   const pcosPattern = result.pcosPattern || (result.overallScore >= 55 ? 'HIGH' : result.overallScore >= 28 ? 'MODERATE' : 'LOW');
@@ -223,6 +248,30 @@ export const ScreeningResultView: React.FC<ScreeningResultViewProps> = ({
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8 space-y-6">
+      {/* Download Success Banner */}
+      {pdfDownloadSuccess && (
+        <div className="bg-emerald-700 text-white p-4 rounded-2xl shadow-lg flex items-center justify-between gap-3 text-xs font-semibold animate-in fade-in slide-in-from-top-2">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-xl bg-white/20 flex items-center justify-center shrink-0">
+              <CheckCircle2 className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <p className="font-bold text-sm">Clinical Health Assessment Report Downloaded</p>
+              <p className="text-[11px] text-emerald-100 font-normal">
+                Saved as <span className="font-mono font-bold text-white">{pdfDownloadSuccess}</span>. Includes your health assessment, screening date, Rotterdam metrics, and AI-derived recommendations.
+              </p>
+            </div>
+          </div>
+          <button
+            onClick={() => setPdfDownloadSuccess(null)}
+            className="px-2.5 py-1 text-emerald-100 hover:text-white rounded-lg hover:bg-white/10 transition text-xs font-bold"
+            title="Dismiss"
+          >
+            ✕
+          </button>
+        </div>
+      )}
+
       {/* 1. Main Assessment Result Card */}
       <div className={`rounded-3xl p-6 sm:p-8 border ${style.border} ${style.bg} shadow-xl relative`}>
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
@@ -245,15 +294,32 @@ export const ScreeningResultView: React.FC<ScreeningResultViewProps> = ({
             </div>
           </div>
 
-          {/* Read aloud, 3D and PDF Report buttons */}
+          {/* Download PDF, Print, Read aloud and 3D buttons */}
           <div className="flex items-center gap-2 flex-wrap">
+            <button
+              type="button"
+              id="btn-download-report-pdf-top"
+              onClick={handleDownloadReportPdf}
+              disabled={isDownloadingPdf}
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold shadow-md shadow-rose-200 transition disabled:opacity-60"
+              title="Download health assessment report as PDF"
+            >
+              {isDownloadingPdf ? (
+                <Loader2 className="w-4 h-4 animate-spin" />
+              ) : (
+                <Download className="w-4 h-4" />
+              )}
+              <span>{isDownloadingPdf ? 'Generating PDF...' : 'Download Report (PDF)'}</span>
+            </button>
+
             <button
               type="button"
               id="btn-view-pdf-report-top"
               onClick={() => setShowPdfModal(true)}
-              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-rose-700 hover:bg-rose-800 text-white text-xs font-bold shadow-sm transition"
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-slate-800 text-xs font-bold shadow-xs hover:bg-slate-50 transition"
+              title="View full report preview and print"
             >
-              <FileText className="w-4 h-4" />
+              <FileText className="w-4 h-4 text-slate-600" />
               <span>{t('pdfReportBtn')}</span>
             </button>
 
@@ -309,6 +375,55 @@ export const ScreeningResultView: React.FC<ScreeningResultViewProps> = ({
           >
             <Calendar className="w-4 h-4 text-rose-600" />
             <span>Track Menstrual Cycles</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Spotlight Card: Download Official Health Assessment PDF */}
+      <div className="bg-white rounded-3xl p-5 sm:p-6 shadow-xl border border-rose-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div className="flex items-start sm:items-center gap-3.5">
+          <div className="w-12 h-12 rounded-2xl bg-rose-50 border border-rose-200 flex items-center justify-center text-rose-600 shrink-0 shadow-xs">
+            <FileText className="w-6 h-6" />
+          </div>
+          <div>
+            <div className="flex items-center gap-2 flex-wrap">
+              <h3 className="text-sm sm:text-base font-bold text-slate-900">
+                Official Clinical Health Assessment Report
+              </h3>
+              <span className="text-[10px] font-bold bg-teal-50 text-teal-700 border border-teal-200 px-2 py-0.5 rounded-full">
+                PDF Ready • jsPDF Standard
+              </span>
+            </div>
+            <p className="text-xs text-slate-500 mt-0.5">
+              Includes comprehensive risk assessment ({pcosPattern} Pattern), Rotterdam point breakdown, date & time, metabolic markers, and actionable recommendations derived from the AI analysis.
+            </p>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2.5 w-full sm:w-auto shrink-0">
+          <button
+            type="button"
+            id="btn-download-spotlight-pdf"
+            onClick={handleDownloadReportPdf}
+            disabled={isDownloadingPdf}
+            className="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold shadow-md shadow-rose-200 transition disabled:opacity-60"
+          >
+            {isDownloadingPdf ? (
+              <Loader2 className="w-4 h-4 animate-spin" />
+            ) : (
+              <Download className="w-4 h-4" />
+            )}
+            <span>{isDownloadingPdf ? 'Generating PDF...' : 'Download Report as PDF'}</span>
+          </button>
+
+          <button
+            type="button"
+            id="btn-preview-spotlight-pdf"
+            onClick={() => setShowPdfModal(true)}
+            className="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold transition border border-slate-200"
+          >
+            <FileText className="w-3.5 h-3.5 text-slate-600" />
+            <span>Preview & Print</span>
           </button>
         </div>
       </div>
@@ -698,11 +813,16 @@ export const ScreeningResultView: React.FC<ScreeningResultViewProps> = ({
             <button
               type="button"
               id="btn-download-pdf-report-bottom"
-              onClick={() => setShowPdfModal(true)}
-              className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold transition shadow-xs"
+              onClick={handleDownloadReportPdf}
+              disabled={isDownloadingPdf}
+              className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold transition shadow-xs disabled:opacity-60"
             >
-              <Download className="w-3.5 h-3.5" />
-              <span>{t('pdfDownloadBtn')}</span>
+              {isDownloadingPdf ? (
+                <Loader2 className="w-3.5 h-3.5 animate-spin" />
+              ) : (
+                <Download className="w-3.5 h-3.5" />
+              )}
+              <span>{isDownloadingPdf ? 'Generating PDF...' : 'Download Report as PDF'}</span>
             </button>
           </div>
         </div>

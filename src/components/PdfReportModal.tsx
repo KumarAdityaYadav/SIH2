@@ -20,10 +20,9 @@ import {
   Sparkles,
   Loader2,
 } from 'lucide-react';
-import { jsPDF } from 'jspdf';
-import html2canvas from 'html2canvas';
 import { LanguageCode, ScreeningResult, User } from '../types';
 import { getTranslation } from '../services/translations';
+import { generateScreeningPdfReport } from '../services/pdfReportGenerator';
 
 interface PdfReportModalProps {
   isOpen: boolean;
@@ -80,50 +79,19 @@ export const PdfReportModal: React.FC<PdfReportModalProps> = ({
   };
 
   const handleDownloadPdf = async () => {
-    if (!reportRef.current) return;
     setIsGeneratingPdf(true);
     setDownloadSuccess(false);
 
     try {
-      // High-resolution canvas capture
-      const canvas = await html2canvas(reportRef.current, {
-        scale: 2,
-        useCORS: true,
-        logging: false,
-        backgroundColor: '#ffffff',
+      await generateScreeningPdfReport({
+        result,
+        currentUser,
+        currentLanguage,
       });
-
-      const imgData = canvas.toDataURL('image/png');
-      const pdf = new jsPDF({
-        orientation: 'portrait',
-        unit: 'mm',
-        format: 'a4',
-      });
-
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-      const pageHeight = pdf.internal.pageSize.getHeight();
-
-      let heightLeft = pdfHeight;
-      let position = 0;
-
-      // Add image pages
-      pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, pdfHeight);
-      heightLeft -= pageHeight;
-
-      while (heightLeft >= 0) {
-        position = heightLeft - pdfHeight;
-        pdf.addPage();
-        pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, pdfHeight);
-        heightLeft -= pageHeight;
-      }
-
-      pdf.save(`StreeSure_Clinical_Report_${reportId}.pdf`);
       setDownloadSuccess(true);
-      setTimeout(() => setDownloadSuccess(false), 4000);
+      setTimeout(() => setDownloadSuccess(false), 5000);
     } catch (err) {
       console.error('Error generating PDF:', err);
-      // Fallback to window.print
       window.print();
     } finally {
       setIsGeneratingPdf(false);
